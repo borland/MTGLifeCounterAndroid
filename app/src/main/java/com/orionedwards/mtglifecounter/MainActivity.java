@@ -2,9 +2,11 @@ package com.orionedwards.mtglifecounter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -17,13 +19,35 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity  {
+import java.lang.reflect.Type;
+import java.util.Arrays;
+
+public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    final static int LAUNCH_DUEL = 1;
+    final static int LAUNCH_2HG = 2;
+    final static int LAUNCH_3PLAYER = 3;
+    final static int ROLL_D20 = 10;
+
+    // hack to create generic arrays in java because it has rubbish generics
+    @SafeVarargs
+    static <T> T[] createArray(T... items) {
+        return Arrays.copyOf(items, items.length);
+    }
+
+    final static Pair<String, Integer>[] sItems = createArray(
+            Pair.create("- Games", 0),
+            Pair.create("Duel", LAUNCH_DUEL),
+            Pair.create("Two-headed Giant", LAUNCH_2HG),
+            Pair.create("3 Player", LAUNCH_3PLAYER),
+            Pair.create("- Utilities", 0),
+            Pair.create("Roll D20", ROLL_D20));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,32 +55,38 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
 
         ListView menuList = (ListView)findViewById(R.id.main_menu_list);
-        menuList.setAdapter(new MenuListAdapter());
+        if(menuList != null) {
+            menuList.setOnItemClickListener(this);
+            menuList.setAdapter(new MenuListAdapter());
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        switch((int)id) {
+            case LAUNCH_DUEL:
+                Intent intent = new Intent(this, DuelActivity.class);
+                startActivity(intent);
+                break;
+            default:
+                break;
+        }
     }
 
     class MenuListAdapter extends BaseAdapter {
-        final String[] mItems = new String[]{
-                "- Games",
-                "Duel",
-                "Two-headed Giant",
-                "3 Player",
-                "- Utilities",
-                "Roll D20"
-        };
-
         @Override
         public int getCount() {
-            return mItems.length;
+            return sItems.length;
         }
 
         @Override
         public Object getItem(int position) {
-            return mItems[position];
+            return sItems[position];
         }
 
         @Override
         public long getItemId(int position) {
-            return position;
+            return sItems[position].second;
         }
 
         @Override
@@ -64,7 +94,7 @@ public class MainActivity extends AppCompatActivity  {
             LayoutInflater inflater = (LayoutInflater)MainActivity.this.getApplicationContext()
                     .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-            String item = mItems[position];
+            String item = sItems[position].first;
 
             View rowView;
 
@@ -84,7 +114,7 @@ public class MainActivity extends AppCompatActivity  {
 
         @Override
         public boolean isEnabled(int position) {
-            String item = mItems[position];
+            String item = sItems[position].first;
             return !item.startsWith("- "); // disabled for headers
         }
     }
