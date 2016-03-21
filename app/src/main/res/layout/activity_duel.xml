@@ -8,7 +8,7 @@
 
     <fragment
         android:name="com.orionedwards.mtglifecounter.PlayerFragment"
-        android:id="@+id/duel_p1_fragment"
+        android:id="@+id/duelP1fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"  />
@@ -27,7 +27,11 @@
             android:layout_alignParentStart="true"
             android:layout_marginLeft="@dimen/textview_half_margin"
             android:layout_marginStart="@dimen/textview_half_margin"
-            android:padding="@dimen/textview_half_margin" />
+            android:padding="@dimen/textview_half_margin"
+            android:paddingLeft="@dimen/textview_margin"
+            android:paddingStart="@dimen/textview_margin"
+            android:paddingRight="@dimen/textview_margin"
+            android:paddingEnd="@dimen/textview_margin"/>
 
         <Button
             android:text="D20"
@@ -35,7 +39,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:padding="@dimen/textview_half_margin" />
+            android:padding="@dimen/textview_half_margin"
+            android:paddingLeft="@dimen/button_large_margin"
+            android:paddingStart="@dimen/button_large_margin"
+            android:paddingRight="@dimen/button_large_margin"
+            android:paddingEnd="@dimen/button_large_margin"/>
 
         <Button
             android:text="Reset"
@@ -47,12 +55,16 @@
             android:layout_alignParentEnd="true"
             android:layout_marginRight="@dimen/textview_half_margin"
             android:layout_marginEnd="@dimen/textview_half_margin"
-            android:padding="@dimen/textview_half_margin" />
+            android:padding="@dimen/textview_half_margin"
+            android:paddingLeft="@dimen/textview_margin"
+            android:paddingStart="@dimen/textview_margin"
+            android:paddingRight="@dimen/textview_margin"
+            android:paddingEnd="@dimen/textview_margin"/>
     </RelativeLayout>
 
     <fragment
         android:name="com.orionedwards.mtglifecounter.PlayerFragment"
-        android:id="@+id/duel_p2_fragment"
+        android:id="@+id/duelP2fragment"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />

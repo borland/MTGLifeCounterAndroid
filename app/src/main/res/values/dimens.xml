@@ -8,4 +8,10 @@
     <dimen name="textview_margin">16dp</dimen>
     <dimen name="textview_half_margin">8dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="lifetotal_textsize">120sp</dimen>
+    <dimen name="lifetotal_accessoryTextSize">60sp</dimen>
+    <dimen name="lifetotal_accessoryMargin">22dp</dimen>
+
+    <dimen name="button_large_margin">24dp</dimen>
 </resources>
