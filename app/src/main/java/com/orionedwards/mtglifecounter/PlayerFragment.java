@@ -1,6 +1,7 @@
 package com.orionedwards.mtglifecounter;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.BoolRes;
@@ -38,6 +39,9 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
     private int mLifeTotal = 0;
     private Boolean mIsUpsideDown = false;
     private MtgColor mColor = MtgColor.White;
+
+    private float mLastTouchDownX = 0;
+    private float mLastTouchDownY = 0;
 
     public PlayerFragment() {
         // Required empty public constructor
@@ -110,6 +114,8 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
 
     @Override
     public boolean onDown(MotionEvent e) {
+        mLastTouchDownX = e.getX();
+        mLastTouchDownY = e.getY();
         return true;
     }
 
