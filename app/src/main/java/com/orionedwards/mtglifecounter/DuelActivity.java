@@ -35,9 +35,25 @@ public class DuelActivity extends FragmentActivity {
         try {
             JSONObject config = DataStore.getWithKey(this, getConfigKey());
 
-            config.getInt("player1");
+            mPlayer1.resetLifeTotal(config.getInt("player1"));
+            mPlayer1.setColor(MtgColor.values()[config.getInt("player1color")]);
 
-        } catch(DataStoreException | JSONException _){ }
+            mPlayer2.resetLifeTotal(config.getInt("player2"));
+            mPlayer2.setColor(MtgColor.values()[config.getInt("player2color")]);
+
+        } catch(DataStoreException | JSONException unused){ }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        saveConfig();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveConfig();
     }
 
     public void onBackButtonClicked(View v) {
@@ -49,6 +65,22 @@ public class DuelActivity extends FragmentActivity {
     }
 
     public void onResetButtonClicked(View v) {
+        mPlayer1.resetLifeTotal(getInitialLifeTotal());
+        mPlayer2.resetLifeTotal(getInitialLifeTotal());
+    }
 
+    private void saveConfig() {
+        try {
+            JSONObject config = new JSONObject();
+
+            config.put("player1", mPlayer1.getLifeTotal());
+            config.put("player1color", mPlayer1.getColor().ordinal());
+
+            config.put("player2", mPlayer2.getLifeTotal());
+            config.put("player2color", mPlayer2.getColor().ordinal());
+
+            DataStore.setWithKey(this, getConfigKey(), config);
+
+        } catch(DataStoreException | JSONException unused){ }
     }
 }

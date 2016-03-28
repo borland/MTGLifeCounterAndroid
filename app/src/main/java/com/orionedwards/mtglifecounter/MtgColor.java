@@ -8,6 +8,9 @@ public enum MtgColor {
     WhiteBlue, BlueBlack, BlackRed, RedGreen, GreenWhite, // allied
     WhiteBlack, BlueRed, BlackGreen, RedWhite, GreenBlue; // enemy
 
+    public static final boolean PRIMARY = true;
+    public static final boolean SECONDARY = false;
+
     public String getDisplayName() {
         switch(this) {
             case White: return "White";
@@ -44,48 +47,48 @@ public enum MtgColor {
                 case White:
                 case WhiteBlue:
                 case WhiteBlack:
-                    return Color.argb(1, 1, 1, 1);
+                    return Color.argb(255, 255, 255, 255);
                 case Blue:
                 case BlueBlack:
                 case BlueRed:
-                    return Color.argb(1, 0, 56, 184);
+                    return Color.argb(255, 0, 56, 184);
                 case Black:
                 case BlackRed:
                 case BlackGreen:
-                    return Color.argb(1, 31, 48, 64);
+                    return Color.argb(255, 31, 48, 64);
                 case Red:
                 case RedGreen:
                 case RedWhite:
-                    return Color.argb(1, 214, 10, 18);
+                    return Color.argb(255, 214, 10, 18);
                 case Green:
                 case GreenWhite:
                 case GreenBlue:
-                    return Color.argb(1, 64, 173, 69);
+                    return Color.argb(255, 64, 173, 69);
             }
         } else {
             switch(this) {
                 case White:
                 case GreenWhite:
                 case RedWhite:
-                    return Color.argb(1, 247, 235, 230);
+                    return Color.argb(255, 247, 235, 230);
                 case Blue:
                 case WhiteBlue:
                 case GreenBlue:
-                    return Color.argb(1, 51, 77, 255);
+                    return Color.argb(255, 51, 77, 255);
                 case Black:
                 case BlueBlack:
                 case WhiteBlack:
-                    return Color.argb(1, 0, 0, 0);
+                    return Color.argb(255, 0, 0, 0);
                 case Red:
                 case BlackRed:
                 case BlueRed:
-                    return Color.argb(1, 214, 10, 18);
+                    return Color.argb(255, 214, 10, 18);
                 case Green:
                 case RedGreen:
                 case BlackGreen:
-                    return Color.argb(1, 199, 36, 10);
+                    return Color.argb(255, 199, 36, 10);
             }
         }
-        return Color.argb(1,0,0,0);
+        return Color.argb(255,0,0,0); // black if all else fails
     }
 }
