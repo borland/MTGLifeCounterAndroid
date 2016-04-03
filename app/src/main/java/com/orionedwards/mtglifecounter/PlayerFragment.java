@@ -31,6 +31,7 @@ import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -55,9 +56,9 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
     private TextView mPlusButtonLabel;
     private TextView mMinusButtonLabel;
 
-    private final GestureDetectorCompat mGestureDetector;
+    private GestureDetectorCompat mGestureDetector; // final after onCreateView
+    private LifeTotalDeltaTracker mTracker; // final after onCreateView
 
-    private LifeTotalDeltaTracker mTracker = new LifeTotalDeltaTracker();
     private String mPlayerName = "";
     private int mLifeTotal = 0;
     private Boolean mIsUpsideDown = false;
@@ -71,7 +72,6 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
 
     public PlayerFragment() {
         // Required empty public constructor
-        mGestureDetector = new GestureDetectorCompat(this.getContext(), this);
     }
 
     @Override
@@ -94,6 +94,11 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
         mLifeTotalLabel = (TextView)mView.findViewById(R.id.lifeTotal);
         mPlusButtonLabel = (TextView)mView.findViewById(R.id.plus);
         mMinusButtonLabel = (TextView)mView.findViewById(R.id.minus);
+
+        mGestureDetector = new GestureDetectorCompat(getContext(), this);
+        mTracker = new LifeTotalDeltaTracker(getContext());
+        mTracker.setParent((RelativeLayout)mView);
+
         return mView;
     }
 
@@ -301,62 +306,4 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
             view.setBackground(p);
         }
     }
-}
-
-class HistoryTuple {
-    public Date when;
-    public int lifeTotal;
-
-    HistoryTuple(int lifeTotal) {
-        this.lifeTotal = lifeTotal;
-        this.when = new Date();
-    }
-}
-
-class LifeTotalDeltaTracker {
-    final int FLOATING_VIEW_FONT_SIZE = 44;
-    final double FLOATING_VIEW_TIMEOUT = 1.7;
-    final double FLOATING_VIEW_HIDE_TIME = 0.25;
-
-    private int mBaseline = 0; // we show +/- x relative to this
-    private LinkedList<HistoryTuple> mHistory = new LinkedList<>();
-    private View mFloatingView = null;
-    private Callable mCancelPreviousDelay = null;
-    private View mParent = null;
-
-    LifeTotalDeltaTracker() {
-
-    }
-
-    public View getParent() {
-        return mParent;
-    }
-
-    public void setParent(View parent) {
-        mParent = parent;
-    }
-
-    public void update(int lifeTotal) {
-        if(!mHistory.isEmpty()) {
-            HistoryTuple t = mHistory.getLast();
-            if(t.lifeTotal == lifeTotal) {
-                return; // no point recording a duplicate
-            }
-        }
-
-        HistoryTuple nt = new HistoryTuple(lifeTotal);
-        mHistory.addLast(nt);
-        updateUi(lifeTotal);
-    }
-
-    public void reset(int lifeTotal) {
-        mHistory.clear();
-        mBaseline = lifeTotal;
-        updateUi(lifeTotal);
-    }
-
-    private void updateUi(int lifeTotal) {
-
-    }
-
 }
