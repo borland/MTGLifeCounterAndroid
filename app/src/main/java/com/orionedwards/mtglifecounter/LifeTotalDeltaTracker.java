@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,8 +29,8 @@ class HistoryTuple {
 public class LifeTotalDeltaTracker {
     final int STANDARD_MARGIN = 16; // dp?
     final float FLOATING_VIEW_FONT_SIZE = 44f;
-    final double FLOATING_VIEW_TIMEOUT = 1.7;
-    final double FLOATING_VIEW_HIDE_TIME = 0.25;
+    final double FLOATING_VIEW_TIMEOUT_SECONDS = 1.7;
+    final long FLOATING_VIEW_HIDE_MILLIS = 250;
 
     private final @NonNull Context mContext;
     private int mBaseline = 0; // we show +/- x relative to this
@@ -103,7 +106,6 @@ public class LifeTotalDeltaTracker {
     private void showOrExtendView() {
         if(mParent != null && mFloatingView == null && mHistory.size() > 1) {
             FloatingView fv = new FloatingView(mContext, mLabel, FLOATING_VIEW_FONT_SIZE / 5);
-            fv.setBackgroundColor(Color.BLUE);
 
             RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
             params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
@@ -118,7 +120,7 @@ public class LifeTotalDeltaTracker {
         if(mCancelPreviousDelay != null) {
             mCancelPreviousDelay.run();
         }
-        mCancelPreviousDelay = delay(FLOATING_VIEW_TIMEOUT, new Runnable() {
+        mCancelPreviousDelay = delay(FLOATING_VIEW_TIMEOUT_SECONDS, new Runnable() {
             @Override
             public void run() {
                 if(mHistory.size() < 1) {
@@ -130,11 +132,13 @@ public class LifeTotalDeltaTracker {
                 mHistory.clear();
 
                 if(mFloatingView != null) {
-                    // Animate this away with FLOATING_VIEW_HIDE_TIME
-
-                    mFloatingView.setAlpha(0);
-                    mFloatingView.remove();
-                    mFloatingView = null;
+                    mFloatingView.animate().alpha(0).setDuration(FLOATING_VIEW_HIDE_MILLIS).withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            mFloatingView.remove();
+                            mFloatingView = null;
+                        }
+                    });
                 }
             }
         });

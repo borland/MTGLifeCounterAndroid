@@ -277,7 +277,6 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
 
     // ----- Background -----
 
-    @TargetApi(16)
     private void SetBackgroundGradient(View v) {
         final View view = v;
 
@@ -299,11 +298,6 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
         PaintDrawable p = new PaintDrawable();
         p.setShape(new RectShape());
         p.setShaderFactory(sf);
-        int sdk = android.os.Build.VERSION.SDK_INT;
-        if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN) {
-            view.setBackgroundDrawable(p);
-        } else {
-            view.setBackground(p);
-        }
+        view.setBackground(p);
     }
 }
