@@ -29,7 +29,7 @@ class HistoryTuple {
 public class LifeTotalDeltaTracker {
     final int STANDARD_MARGIN = 16; // dp?
     final float FLOATING_VIEW_FONT_SIZE = 44f;
-    final double FLOATING_VIEW_TIMEOUT_SECONDS = 1.7;
+    final long FLOATING_VIEW_TIMEOUT_MILLIS = 1700;
     final long FLOATING_VIEW_HIDE_MILLIS = 250;
 
     private final @NonNull Context mContext;
@@ -74,29 +74,6 @@ public class LifeTotalDeltaTracker {
         updateUi(lifeTotal);
     }
 
-    public static Runnable delay(double seconds, @NonNull final Runnable callback) {
-        final Handler handler = new Handler();
-        final boolean[] capture = { false };
-
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(capture[0] == true) {
-                    return; // canceled
-                }
-                callback.run();
-            }
-        }, (long) (seconds * 1000));
-
-        // return a Runnable which cancels the delayed action if it hasn't already run
-        return new Runnable() {
-            @Override
-            public void run() {
-                capture[0] = true;
-            }
-        };
-    }
-
     private void updateUi(int lifeTotal) {
         String symbol = (lifeTotal - mBaseline >= 0) ? "+" : "";
         mLabel.setText(String.format(Locale.getDefault(), "%s%d", symbol, lifeTotal - mBaseline));
@@ -120,7 +97,7 @@ public class LifeTotalDeltaTracker {
         if(mCancelPreviousDelay != null) {
             mCancelPreviousDelay.run();
         }
-        mCancelPreviousDelay = delay(FLOATING_VIEW_TIMEOUT_SECONDS, new Runnable() {
+        mCancelPreviousDelay = Util.delay(FLOATING_VIEW_TIMEOUT_MILLIS, new Runnable() {
             @Override
             public void run() {
                 if(mHistory.size() < 1) {

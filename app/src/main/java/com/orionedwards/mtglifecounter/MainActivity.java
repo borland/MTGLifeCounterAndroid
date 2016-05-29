@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.util.Pair;
@@ -24,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.lang.reflect.Type;
@@ -34,6 +36,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     final static int LAUNCH_2HG = 2;
     final static int LAUNCH_3PLAYER = 3;
     final static int ROLL_D20 = 10;
+
+    @Nullable RelativeLayout mRootView;
 
     // hack to create generic arrays in java because it has rubbish generics
     @SafeVarargs
@@ -54,6 +58,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        mRootView = (RelativeLayout)findViewById(R.id.main_layout);
+        assert(mRootView != null);
+
         ListView menuList = (ListView)findViewById(R.id.main_menu_list);
         if(menuList != null) {
             menuList.setOnItemClickListener(this);
@@ -67,6 +74,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             case LAUNCH_DUEL:
                 Intent intent = new Intent(this, DuelActivity.class);
                 startActivity(intent);
+                break;
+            case ROLL_D20:
+                FloatingView diceRollView = DiceRollView.create(this, RandomGen.next(20) + 1, false);
+                diceRollView.showInView(mRootView, null, 1000, 1300, FloatingView.DEFAULT_FADE_MILLIS);
                 break;
             default:
                 break;
