@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -61,7 +62,17 @@ public class DuelActivity extends FragmentActivity {
     }
 
     public void onD20ButtonClicked(View v) {
+        Util.DiceRollResult[] result = Util.randomUntiedDiceRolls(2, 20);
 
+        int wh = (int)Util.pxToDp(this, 110); // equal to fontSize
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(wh, wh);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+
+        FloatingView diceView1 = DiceRollView.create(this, result[0].number, result[0].winner);
+        diceView1.showInView(mPlayer1.getRootView(), params);
+
+        FloatingView diceView2 = DiceRollView.create(this, result[1].number, result[1].winner);
+        diceView2.showInView(mPlayer2.getRootView(), params);
     }
 
     public void onResetButtonClicked(View v) {

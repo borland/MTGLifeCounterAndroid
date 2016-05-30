@@ -26,9 +26,14 @@ public class DiceRollView {
             }
         };
 
-        final NumberWheelView numberView = new NumberWheelView(context, 110, context.getResources().getColor(R.color.white), 30, generator);
+        final NumberWheelView numberView = new NumberWheelView(context,
+                60, // fontSize
+                Color.WHITE, // textColor
+                30, // numCells
+                generator); // cellGenerator
 
-        final FloatingView fv = new FloatingView(context, numberView, 120f / 5);
+        float cornerRadius = Util.pxToDp(context, 6);
+        final FloatingView fv = new FloatingView(context, numberView, cornerRadius);
         fv.setBeforeShow(new FloatingView.BeforeShowCallback() {
             @Override
             public void beforeShow(long callbackDurationMillis) {

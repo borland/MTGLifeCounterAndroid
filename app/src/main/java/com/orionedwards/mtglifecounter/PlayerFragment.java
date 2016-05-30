@@ -51,7 +51,7 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
     static final int LOCK_HORIZONTAL = 1;
     static final int LOCK_VERTICAL = 2;
 
-    private View mView;
+    private RelativeLayout mView;
     private TextView mLifeTotalLabel;
     private TextView mPlusButtonLabel;
     private TextView mMinusButtonLabel;
@@ -74,6 +74,10 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
         // Required empty public constructor
     }
 
+    public RelativeLayout getRootView() {
+        return mView;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,7 +91,7 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.fragment_player, container, false);
+        mView = (RelativeLayout)inflater.inflate(R.layout.fragment_player, container, false);
         mView.setOnTouchListener(this);
         SetBackgroundGradient(mView);
 

@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.util.Pair;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -76,8 +77,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(intent);
                 break;
             case ROLL_D20:
+                int wh = (int)Util.pxToDp(this, 110); // equal to fontSize
+                RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(wh, wh);
+                params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+
                 FloatingView diceRollView = DiceRollView.create(this, RandomGen.next(20) + 1, false);
-                diceRollView.showInView(mRootView, null, 1000, 1300, FloatingView.DEFAULT_FADE_MILLIS);
+                diceRollView.showInView(mRootView, params, 1000, 1300, FloatingView.DEFAULT_FADE_MILLIS);
                 break;
             default:
                 break;

@@ -17,13 +17,11 @@ import android.widget.TextView;
 
 import java.util.Locale;
 
+import static com.orionedwards.mtglifecounter.Util.pxToDp;
+
 public class NumberWheelView extends RelativeLayout {
     public static interface Generator {
         SpannableString generate(int x);
-    }
-
-    public float pxToDp(float px) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, getResources().getDisplayMetrics());
     }
 
     private static final int LINE_GAP = 6;
@@ -50,11 +48,12 @@ public class NumberWheelView extends RelativeLayout {
             TextView tv = new TextView(getContext());
             tv.setText(generator.generate(i));
             tv.setTextSize(fontSize);
+            tv.setTextColor(textColor);
             tv.setSingleLine(true);
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
 //            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            tlp.setMargins(0, 0, 0, (int)pxToDp(LINE_GAP));
+            tlp.setMargins(0, 0, 0, (int)pxToDp(context, LINE_GAP));
             tv.setLayoutParams(tlp);
             inner.addView(tv);
         }
