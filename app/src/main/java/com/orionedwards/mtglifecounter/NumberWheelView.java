@@ -24,8 +24,8 @@ public class NumberWheelView extends RelativeLayout {
         SpannableString generate(int x);
     }
 
-    private static final int LINE_GAP = 6;
-    private static final int OVERSHOOT_ITEM_COUNT = 2;
+    private static final int LINE_GAP = 5;
+    private static final int OVERSHOOT_ITEM_COUNT = 1;
 
     private final View mInnerView;
     private final int mNumCells;
@@ -46,7 +46,7 @@ public class NumberWheelView extends RelativeLayout {
 
         for(int i = 0; i < numCells + OVERSHOOT_ITEM_COUNT; i++) { // 2 more for overshoot
             TextView tv = new TextView(getContext());
-            tv.setText(generator.generate(i));
+            tv.setText(generator.generate(numCells - 1 - i));
             tv.setTextSize(fontSize);
             tv.setTextColor(textColor);
             tv.setSingleLine(true);

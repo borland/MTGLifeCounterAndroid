@@ -59,6 +59,21 @@ public class FloatingView extends RelativeLayout {
         setBackground(bg);
     }
 
+    @Override
+    public void setBackgroundColor(int color) {
+        // custom background drawable for rounded cornders
+        GradientDrawable bg = (GradientDrawable)getBackground();
+        bg.setColor(color);
+    }
+
+    public void pulse() {
+        this.animate()
+                .scaleX(1.3f)
+                .scaleY(1.3f)
+                .setDuration(200)
+                .start();
+    }
+
     public void setBeforeShow(BeforeShowCallback value) {
         mBeforeShow = value;
     }
@@ -110,6 +125,9 @@ public class FloatingView extends RelativeLayout {
 
     public void remove() {
         removeView(mInnerView);
-        ((ViewGroup)getParent()).removeView(this);
+        ViewGroup parent = ((ViewGroup)getParent());
+        if(parent != null) {
+            parent.removeView(this);
+        }
     }
 }

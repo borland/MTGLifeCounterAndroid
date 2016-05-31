@@ -1,37 +1,35 @@
 package com.orionedwards.mtglifecounter;
 
-import android.net.Uri;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.RelativeLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class DuelActivity extends FragmentActivity {
-
+public class ThreePlayerActivity extends AppCompatActivity {
     protected int getInitialLifeTotal() { return 20; }
-    protected String getConfigKey() { return "duel"; }
+    protected String getConfigKey() { return "3player"; }
 
     protected PlayerFragment mPlayer1;
     protected PlayerFragment mPlayer2;
+    protected PlayerFragment mPlayer3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_duel);
+        setContentView(R.layout.activity_three_player);
 
-        mPlayer1 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.duelP1fragment);
-        mPlayer1.setIsUpsideDown(true);
+
+        mPlayer1 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.threeP1fragment);
         mPlayer1.setLifeTotal(getInitialLifeTotal());
 
-        mPlayer2 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.duelP2fragment);
+        mPlayer2 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.threeP2fragment);
         mPlayer2.setLifeTotal(getInitialLifeTotal());
+
+        mPlayer3 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.threeP3fragment);
+        mPlayer3.setLifeTotal(getInitialLifeTotal());
 
         try {
             JSONObject config = DataStore.getWithKey(this, getConfigKey());
@@ -41,6 +39,9 @@ public class DuelActivity extends FragmentActivity {
 
             mPlayer2.resetLifeTotal(config.getInt("player2"));
             mPlayer2.setColor(MtgColor.values()[config.getInt("player2color")]);
+
+            mPlayer3.resetLifeTotal(config.getInt("player3"));
+            mPlayer3.setColor(MtgColor.values()[config.getInt("player3color")]);
 
         } catch(DataStoreException | JSONException unused){ }
     }
@@ -62,10 +63,10 @@ public class DuelActivity extends FragmentActivity {
     }
 
     public void onD20ButtonClicked(View v) {
-        Util.DiceRollResult[] result = Util.randomUntiedDiceRolls(2, 20);
+        Util.DiceRollResult[] result = Util.randomUntiedDiceRolls(3, 20);
 
-        int fontSize = 70;
-        int wh = (int)Util.pxToDp(this, 120);
+        int fontSize = 60;
+        int wh = (int)Util.pxToDp(this, 105);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(wh, wh);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 
@@ -74,11 +75,15 @@ public class DuelActivity extends FragmentActivity {
 
         FloatingView diceView2 = DiceRollView.create(this, fontSize, result[1].number, result[1].winner);
         diceView2.showInView(mPlayer2.getRootView(), params);
+
+        FloatingView diceView3 = DiceRollView.create(this, fontSize, result[2].number, result[2].winner);
+        diceView3.showInView(mPlayer3.getRootView(), params);
     }
 
     public void onResetButtonClicked(View v) {
         mPlayer1.resetLifeTotal(getInitialLifeTotal());
         mPlayer2.resetLifeTotal(getInitialLifeTotal());
+        mPlayer3.resetLifeTotal(getInitialLifeTotal());
     }
 
     private void saveConfig() {
@@ -90,6 +95,9 @@ public class DuelActivity extends FragmentActivity {
 
             config.put("player2", mPlayer2.getLifeTotal());
             config.put("player2color", mPlayer2.getColor().ordinal());
+
+            config.put("player3", mPlayer3.getLifeTotal());
+            config.put("player3color", mPlayer3.getColor().ordinal());
 
             DataStore.setWithKey(this, getConfigKey(), config);
 

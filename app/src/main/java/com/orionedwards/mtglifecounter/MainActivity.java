@@ -71,9 +71,18 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent;
         switch((int)id) {
             case LAUNCH_DUEL:
-                Intent intent = new Intent(this, DuelActivity.class);
+                intent = new Intent(this, DuelActivity.class);
+                startActivity(intent);
+                break;
+            case LAUNCH_2HG:
+                intent = new Intent(this, TwoHeadedGiantActivity.class);
+                startActivity(intent);
+                break;
+            case LAUNCH_3PLAYER:
+                intent = new Intent(this, ThreePlayerActivity.class);
                 startActivity(intent);
                 break;
             case ROLL_D20:
@@ -81,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(wh, wh);
                 params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 
-                FloatingView diceRollView = DiceRollView.create(this, RandomGen.next(20) + 1, false);
+                FloatingView diceRollView = DiceRollView.create(this, 60, RandomGen.next(20) + 1, false);
                 diceRollView.showInView(mRootView, params, 1000, 1300, FloatingView.DEFAULT_FADE_MILLIS);
                 break;
             default:

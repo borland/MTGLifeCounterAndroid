@@ -21,6 +21,12 @@
         <activity
             android:name=".DuelActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".TwoHeadedGiantActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ThreePlayerActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

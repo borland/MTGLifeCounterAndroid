@@ -9,7 +9,7 @@ import java.util.Locale;
 
 public class DiceRollView {
 
-    public static FloatingView create(final Context context, final int num, final boolean winner) {
+    public static FloatingView create(final Context context, final int fontSize, final int num, final boolean winner) {
 
         NumberWheelView.Generator generator = new NumberWheelView.Generator() {
             @Override
@@ -27,7 +27,7 @@ public class DiceRollView {
         };
 
         final NumberWheelView numberView = new NumberWheelView(context,
-                60, // fontSize
+                fontSize, // fontSize
                 Color.WHITE, // textColor
                 30, // numCells
                 generator); // cellGenerator
@@ -45,8 +45,9 @@ public class DiceRollView {
             fv.setBeforePause(new Runnable() {
                 @Override
                 public void run() {
-                    // make it gold and TODO "pulse"
-                    fv.setBackgroundColor(Color.YELLOW);
+                    // make it gold pulse
+                    fv.setBackgroundColor(context.getResources().getColor(R.color.winnerBackground));
+                    fv.pulse();
                 }
             });
         }

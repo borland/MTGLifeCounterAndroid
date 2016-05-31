@@ -5,4 +5,5 @@
     <color name="colorAccent">#CCB1FF</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="winnerBackground">#FBC200</color>
 </resources>

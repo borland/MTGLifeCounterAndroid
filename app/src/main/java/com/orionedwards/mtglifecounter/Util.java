@@ -64,6 +64,9 @@ public class Util {
 
     public static DiceRollResult[] randomUntiedDiceRolls(int numDice, int diceFaceCount) {
         DiceRollResult[] values = new DiceRollResult[numDice];
+        for(int i = 0; i < values.length; i++) {
+            values[i] = new DiceRollResult(RandomGen.next(diceFaceCount) + 1);
+        }
 
         // find the indexes of values that have the highest value, and replace those values with randoms. Repeat until no ties
         while(true) {

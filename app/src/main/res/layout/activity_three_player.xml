@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.orionedwards.mtglifecounter.ThreePlayerActivity">
+
+    <fragment
+        android:name="com.orionedwards.mtglifecounter.PlayerFragment"
+        android:id="@+id/threeP1fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"  />
+
+    <fragment
+        android:name="com.orionedwards.mtglifecounter.PlayerFragment"
+        android:id="@+id/threeP2fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <fragment
+        android:name="com.orionedwards.mtglifecounter.PlayerFragment"
+        android:id="@+id/threeP3fragment"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="&lt; Back"
+            android:onClick="onBackButtonClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/textview_half_margin"
+            android:layout_marginStart="@dimen/textview_half_margin"
+            android:padding="@dimen/textview_half_margin"
+            android:paddingLeft="@dimen/textview_margin"
+            android:paddingStart="@dimen/textview_margin"
+            android:paddingRight="@dimen/textview_margin"
+            android:paddingEnd="@dimen/textview_margin"/>
+
+        <Button
+            android:text="D20"
+            android:onClick="onD20ButtonClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:padding="@dimen/textview_half_margin"
+            android:paddingLeft="@dimen/button_large_margin"
+            android:paddingStart="@dimen/button_large_margin"
+            android:paddingRight="@dimen/button_large_margin"
+            android:paddingEnd="@dimen/button_large_margin"/>
+
+        <Button
+            android:text="Reset"
+            android:onClick="onResetButtonClicked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/textview_half_margin"
+            android:layout_marginEnd="@dimen/textview_half_margin"
+            android:padding="@dimen/textview_half_margin"
+            android:paddingLeft="@dimen/textview_margin"
+            android:paddingStart="@dimen/textview_margin"
+            android:paddingRight="@dimen/textview_margin"
+            android:paddingEnd="@dimen/textview_margin"/>
+    </RelativeLayout>
+
+</LinearLayout>
