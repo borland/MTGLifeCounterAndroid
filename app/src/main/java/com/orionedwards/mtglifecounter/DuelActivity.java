@@ -1,5 +1,6 @@
 package com.orionedwards.mtglifecounter;
 
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -27,11 +28,13 @@ public class DuelActivity extends FragmentActivity {
         setContentView(R.layout.activity_duel);
 
         mPlayer1 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.duelP1fragment);
-        mPlayer1.setIsUpsideDown(true);
         mPlayer1.setLifeTotal(getInitialLifeTotal());
 
         mPlayer2 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.duelP2fragment);
         mPlayer2.setLifeTotal(getInitialLifeTotal());
+
+        boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
+        mPlayer1.setIsUpsideDown(isPortrait);
 
         try {
             JSONObject config = DataStore.getWithKey(this, getConfigKey());

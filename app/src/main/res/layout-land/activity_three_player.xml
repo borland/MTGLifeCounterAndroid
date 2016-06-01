@@ -4,14 +4,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.orionedwards.mtglifecounter.DuelActivity">
+    tools:context="com.orionedwards.mtglifecounter.ThreePlayerActivity">
 
-    <fragment
-        android:name="com.orionedwards.mtglifecounter.PlayerFragment"
-        android:id="@+id/duelP1fragment"
+    <LinearLayout
+        android:baselineAligned="false"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"  />
+        android:layout_weight="1">
+
+        <fragment
+            android:name="com.orionedwards.mtglifecounter.PlayerFragment"
+            android:id="@+id/threeP1fragment"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_player" />
+
+        <fragment
+            android:name="com.orionedwards.mtglifecounter.PlayerFragment"
+            android:id="@+id/threeP2fragment"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_player" />
+
+        <fragment
+            android:name="com.orionedwards.mtglifecounter.PlayerFragment"
+            android:id="@+id/threeP3fragment"
+            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            tools:layout="@layout/fragment_player" />
+
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -46,10 +71,4 @@
             android:paddingEnd="@dimen/textview_margin"/>
     </RelativeLayout>
 
-    <fragment
-        android:name="com.orionedwards.mtglifecounter.PlayerFragment"
-        android:id="@+id/duelP2fragment"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
 </LinearLayout>

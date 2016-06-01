@@ -32,22 +32,6 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="&lt; Back"
-            android:onClick="onBackButtonClicked"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/textview_half_margin"
-            android:layout_marginStart="@dimen/textview_half_margin"
-            android:padding="@dimen/textview_half_margin"
-            android:paddingLeft="@dimen/textview_margin"
-            android:paddingStart="@dimen/textview_margin"
-            android:paddingRight="@dimen/textview_margin"
-            android:paddingEnd="@dimen/textview_margin"/>
-
-        <Button
             android:text="D20"
             android:onClick="onD20ButtonClicked"
             android:layout_width="wrap_content"

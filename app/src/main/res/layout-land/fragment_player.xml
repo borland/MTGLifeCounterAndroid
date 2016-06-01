@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
+    tools:context="com.orionedwards.mtglifecounter.PlayerFragment">
+
+    <TextView
+        android:id="@+id/lifeTotal"
+        android:text="20"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="@dimen/lifetotal_accessoryMargin"
+        android:layout_marginStart="@dimen/lifetotal_accessoryMargin"
+        android:layout_marginRight="@dimen/lifetotal_accessoryMargin"
+        android:layout_marginEnd="@dimen/lifetotal_accessoryMargin"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/lifetotal_textsize"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/minus"
+        android:text="-"
+        android:textSize="@dimen/lifetotal_accessoryTextSize"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/lifeTotal" />
+
+    <TextView
+        android:id="@+id/plus"
+        android:text="+"
+        android:textSize="@dimen/lifetotal_accessoryTextSize"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/lifeTotal" />
+</RelativeLayout>

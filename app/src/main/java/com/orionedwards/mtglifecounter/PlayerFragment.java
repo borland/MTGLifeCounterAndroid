@@ -141,9 +141,9 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
             return;
         }
 
-        if(mColor == MtgColor.White && value != MtgColor.White) {
+        if(mColor.equals(MtgColor.White) && !value.equals(MtgColor.White)) {
             setTextColor(Color.WHITE);
-        } else if(mColor != MtgColor.White && value == MtgColor.White) {
+        } else if(!mColor.equals(MtgColor.White) && value.equals(MtgColor.White)) {
             setTextColor(Color.BLACK);
         }
 
