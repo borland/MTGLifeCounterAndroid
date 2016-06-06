@@ -85,7 +85,7 @@ public class FloatingView extends RelativeLayout {
     @TargetApi(21) // lollipop, android 5.0 needed for setElevation only
     private void setElevationIfAvailable() {
         if(Build.VERSION.SDK_INT >= 21) {
-            setElevation(4);
+            setElevation(20);
         }
     }
 

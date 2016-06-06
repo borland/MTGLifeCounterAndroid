@@ -21,14 +21,13 @@ public class ThreePlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_three_player);
 
-
-        mPlayer1 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.threeP1fragment);
+        mPlayer1 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.p1fragment);
         mPlayer1.setLifeTotal(getInitialLifeTotal());
 
-        mPlayer2 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.threeP2fragment);
+        mPlayer2 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.p2fragment);
         mPlayer2.setLifeTotal(getInitialLifeTotal());
 
-        mPlayer3 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.threeP3fragment);
+        mPlayer3 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.p3fragment);
         mPlayer3.setLifeTotal(getInitialLifeTotal());
 
         try {

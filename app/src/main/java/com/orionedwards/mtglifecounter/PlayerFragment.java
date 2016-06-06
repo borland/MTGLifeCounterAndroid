@@ -302,6 +302,6 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
         PaintDrawable p = new PaintDrawable();
         p.setShape(new RectShape());
         p.setShaderFactory(sf);
-        view.setBackground(p);
+        view.setBackgroundDrawable(p);
     }
 }

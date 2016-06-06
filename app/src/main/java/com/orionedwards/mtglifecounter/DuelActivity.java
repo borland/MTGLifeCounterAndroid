@@ -27,10 +27,10 @@ public class DuelActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_duel);
 
-        mPlayer1 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.duelP1fragment);
+        mPlayer1 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.p1fragment);
         mPlayer1.setLifeTotal(getInitialLifeTotal());
 
-        mPlayer2 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.duelP2fragment);
+        mPlayer2 = (PlayerFragment)getSupportFragmentManager().findFragmentById(R.id.p2fragment);
         mPlayer2.setLifeTotal(getInitialLifeTotal());
 
         boolean isPortrait = getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT;
