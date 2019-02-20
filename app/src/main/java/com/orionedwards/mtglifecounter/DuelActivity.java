@@ -37,7 +37,7 @@ public class DuelActivity extends FragmentActivity {
         mPlayer1.setIsUpsideDown(isPortrait);
 
         try {
-            JSONObject config = DataStore.getWithKey(this, getConfigKey());
+            JSONObject config = DataStore.INSTANCE.getWithKey(this, getConfigKey());
 
             mPlayer1.resetLifeTotal(config.getInt("player1"));
             mPlayer1.setColor(MtgColor.values()[config.getInt("player1color")]);
@@ -65,17 +65,17 @@ public class DuelActivity extends FragmentActivity {
     }
 
     public void onD20ButtonClicked(View v) {
-        Util.DiceRollResult[] result = Util.randomUntiedDiceRolls(2, 20);
+        Util.DiceRollResult[] result = Util.INSTANCE.randomUntiedDiceRolls(2, 20);
 
         int fontSize = 70;
-        int wh = (int)Util.pxToDp(this, 120);
+        int wh = (int) Util.INSTANCE.pxToDp(this, 120);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(wh, wh);
         params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 
-        FloatingView diceView1 = DiceRollView.create(this, fontSize, result[0].number, result[0].winner);
+        FloatingView diceView1 = DiceRollView.INSTANCE.create(this, fontSize, result[0].getNumber(), result[0].getWinner());
         diceView1.showInView(mPlayer1.getRootView(), params);
 
-        FloatingView diceView2 = DiceRollView.create(this, fontSize, result[1].number, result[1].winner);
+        FloatingView diceView2 = DiceRollView.INSTANCE.create(this, fontSize, result[1].getNumber(), result[1].getWinner());
         diceView2.showInView(mPlayer2.getRootView(), params);
     }
 
@@ -94,7 +94,7 @@ public class DuelActivity extends FragmentActivity {
             config.put("player2", mPlayer2.getLifeTotal());
             config.put("player2color", mPlayer2.getColor().ordinal());
 
-            DataStore.setWithKey(this, getConfigKey(), config);
+            DataStore.INSTANCE.setWithKey(this, getConfigKey(), config);
 
         } catch(DataStoreException | JSONException unused){ }
     }

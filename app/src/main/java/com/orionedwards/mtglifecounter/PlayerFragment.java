@@ -83,7 +83,7 @@ public class PlayerFragment extends Fragment implements View.OnTouchListener, Ge
         super.onCreate(savedInstanceState);
 
         MtgColor[] values = MtgColor.values();
-        int idx = RandomGen.next(values.length);
+        int idx = RandomGen.INSTANCE.next(values.length);
         setColor(values[idx]);
     }
 

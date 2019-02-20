@@ -86,12 +86,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
                 startActivity(intent);
                 break;
             case ROLL_D20:
-                int wh = (int)Util.pxToDp(this, 110); // equal to fontSize
+                int wh = (int) Util.INSTANCE.pxToDp(this, 110); // equal to fontSize
                 RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(wh, wh);
                 params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 
-                FloatingView diceRollView = DiceRollView.create(this, 60, RandomGen.next(20) + 1, false);
-                diceRollView.showInView(mRootView, params, 1000, 1300, FloatingView.DEFAULT_FADE_MILLIS);
+                FloatingView diceRollView = DiceRollView.INSTANCE.create(this, 60, RandomGen.INSTANCE.next(20) + 1, false);
+                diceRollView.showInView(mRootView, params, 1000, 1300, FloatingView.Companion.getDEFAULT_FADE_MILLIS());
                 break;
             default:
                 break;
