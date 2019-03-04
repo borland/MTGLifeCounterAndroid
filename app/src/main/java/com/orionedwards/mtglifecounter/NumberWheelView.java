@@ -53,7 +53,7 @@ public class NumberWheelView extends RelativeLayout {
             tv.setGravity(Gravity.CENTER_HORIZONTAL);
 //            tv.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
             LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-            tlp.setMargins(0, 0, 0, (int)pxToDp(context, LINE_GAP));
+            tlp.setMargins(0, 0, 0, (int) pxToDp(context, LINE_GAP));
             tv.setLayoutParams(tlp);
             inner.addView(tv);
         }
