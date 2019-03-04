@@ -7,24 +7,20 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import java.util.*
 
-internal class HistoryTuple(val lifeTotal: Int, val timestamp: Date) {
-    constructor(lifeTotal: Int) : this(lifeTotal, Date())
-}
+internal data class HistoryTuple(val lifeTotal: Int)
 
-class LifeTotalDeltaTracker internal constructor(private val mContext: Context) {
-    private val STANDARD_MARGIN = 16 // dp?
-    private val FLOATING_VIEW_FONT_SIZE = 44f
-    private val FLOATING_VIEW_TIMEOUT_MILLIS: Long = 1700
-    private val FLOATING_VIEW_HIDE_MILLIS: Long = 250
+class LifeTotalDeltaTracker internal constructor(
+        private val mContext: Context)
+{
+
     private var mBaseline = 0 // we show +/- x relative to this
     private val mHistory = LinkedList<HistoryTuple>()
     private var mFloatingView: FloatingView? = null
-    private val mLabel: TextView
+    private val mLabel: TextView = TextView(mContext)
     private var mCancelPreviousDelay: Runnable? = null
     var parent: RelativeLayout? = null
 
     init {
-        mLabel = TextView(mContext)
         mLabel.textSize = FLOATING_VIEW_FONT_SIZE
         mLabel.setTextColor(Color.WHITE)
     }
@@ -80,14 +76,19 @@ class LifeTotalDeltaTracker internal constructor(private val mContext: Context) 
 
             mHistory.clear()
 
-            val floatingView = mFloatingView
-
-            if (floatingView != null) {
+            mFloatingView?.let { floatingView ->
                 floatingView.animate().alpha(0f).setDuration(FLOATING_VIEW_HIDE_MILLIS).withEndAction {
                     floatingView.remove()
                     mFloatingView = null
                 }
             }
         })
+    }
+
+    companion object {
+        private const val STANDARD_MARGIN = 16 // dp?
+        private const val FLOATING_VIEW_FONT_SIZE = 44f
+        private const val FLOATING_VIEW_TIMEOUT_MILLIS: Long = 1700
+        private const val FLOATING_VIEW_HIDE_MILLIS: Long = 250
     }
 }

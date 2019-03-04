@@ -11,11 +11,17 @@ import android.widget.RelativeLayout
 import com.orionedwards.mtglifecounter.Util.delay
 import com.orionedwards.mtglifecounter.Util.pxToDp
 
-class FloatingView(context: Context, internal val mInnerView: View, cornerRadius: Float?) : RelativeLayout(context) {
+class FloatingView(
+        context: Context,
+        private val innerView: View,
+        cornerRadius: Float?) : RelativeLayout(context)
+{
 
     var beforeShow: ((callbackDurationMillis: Long) -> Unit)? = null
     var beforePause: (() -> Unit)? = null
 
+    // standard "context only" constructor to satisfy lint
+    constructor(context: Context) : this(context, View(context), null)
 
     init {
         val padding = pxToDp(context, 8f)
@@ -23,7 +29,7 @@ class FloatingView(context: Context, internal val mInnerView: View, cornerRadius
 
         val p = RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT)
         p.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE)
-        addView(mInnerView, p)
+        addView(innerView, p)
 
         val minVal = pxToDp(context, 40f)
         minimumWidth = minVal.toInt() // try to be a square
@@ -58,7 +64,7 @@ class FloatingView(context: Context, internal val mInnerView: View, cornerRadius
     }
 
     @JvmOverloads
-    fun showInView(parent: RelativeLayout, layoutParams: RelativeLayout.LayoutParams, callbackDurationMillis: Long = DEFAULT_CALLBACK_MILLIS, pauseDurationMillis: Long = DEFAULT_PAUSE_MILLIS, fadeDurationMillis: Long = DEFAULT_FADE_MILLIS) {
+    fun showInView(parent: RelativeLayout, layoutParams: LayoutParams, callbackDurationMillis: Long = DEFAULT_CALLBACK_MILLIS, pauseDurationMillis: Long = DEFAULT_PAUSE_MILLIS) {
         if (getParent() != null) {
             return  // already parented, animation mustn't have finished or something
         }
@@ -82,14 +88,13 @@ class FloatingView(context: Context, internal val mInnerView: View, cornerRadius
     }
 
     fun remove() {
-        removeView(mInnerView)
+        removeView(innerView)
         val parent = parent as ViewGroup
         parent.removeView(this)
     }
 
     companion object {
-        val DEFAULT_CALLBACK_MILLIS: Long = 2200
-        val DEFAULT_PAUSE_MILLIS: Long = 1400
-        val DEFAULT_FADE_MILLIS: Long = 600
+        const val DEFAULT_CALLBACK_MILLIS: Long = 2200
+        const val DEFAULT_PAUSE_MILLIS: Long = 1400
     }
 }

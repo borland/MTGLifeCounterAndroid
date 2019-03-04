@@ -1,19 +1,10 @@
 package com.orionedwards.mtglifecounter
 
 import android.content.Context
-
 import org.json.JSONException
 import org.json.JSONObject
-
-import java.io.BufferedWriter
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.OutputStreamWriter
-import java.util.NoSuchElementException
-import java.util.Scanner
+import java.io.*
+import java.util.*
 
 object DataStore {
     @Throws(DataStoreException::class)

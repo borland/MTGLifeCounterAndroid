@@ -5,6 +5,19 @@ import android.content.Context
 import android.os.Handler
 import android.util.TypedValue
 
+inline fun <T> T?.guardElse(orElse: T?.() -> Unit): T {
+    this?.let { return it }
+    orElse()
+    throw FatalError("guard failed; ")
+}
+
+class FatalError : RuntimeException {
+    @Suppress("unused")
+    constructor(string: String, cause: Throwable) : super(string, cause)
+    constructor(string: String) : super(string)
+}
+
+
 object Util {
     @JvmStatic
     fun delay(millis: Long, callback: Runnable): Runnable {
@@ -78,7 +91,7 @@ object Util {
     fun <T : Comparable<T>> maxElement(collection: Array<T>): T? {
         var result: T? = null
         for (value in collection) {
-            if (result == null || value.compareTo(result) > 0) {
+            if (result == null || value > result) {
                 result = value
             }
         }
@@ -87,7 +100,7 @@ object Util {
 
     @JvmStatic
     fun <T> findIndexes(collection: Array<T>, value: T?): List<Int> {
-        val results = MutableList<Int>(size = 0, init = { 0 })
+        val results = MutableList(size = 0, init = { 0 })
         for (i in collection.indices) {
             if (collection[i] == value) {
                 results.add(i)

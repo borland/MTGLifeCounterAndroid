@@ -9,15 +9,16 @@ import java.util.Locale
 
 object DiceRollView {
 
+    @Suppress("DEPRECATION")
     fun create(context: Context, fontSize: Int, num: Int, winner: Boolean): FloatingView {
 
-        val generator = NumberWheelView.Generator { x ->
+        val generator = generator@{ x:Int  ->
             if (x == 0) {
                 val content = SpannableString(String.format(Locale.getDefault(), "%d", num))
                 if (num == 6 || num == 9) {
                     content.setSpan(UnderlineSpan(), 0, content.length, 0)
                 }
-                return@Generator content
+                return@generator content
             }
 
             SpannableString(String.format(Locale.getDefault(), "%d", RandomGen.next(20) + 1))
